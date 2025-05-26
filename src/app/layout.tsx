@@ -2,9 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ReactNode } from 'react';
 import "./globals.css";
-import { usePathname } from 'next/navigation';
-
-
+import { usePathname } from 'next/navigation';                                  
 
 export default function RootLayout({
   children,

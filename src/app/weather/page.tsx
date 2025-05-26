@@ -39,7 +39,7 @@ const WeatherApp = () => {
   const [inputErrorModal, setInputErrorModal] = useState<boolean>(false);
   const [weatherData, setWeatherData] = useState<WeatherData[] | null>(null);
 
-  const API_KEY = '64126785087333fcb23ddd8f03c3538f';
+  const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
   const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName.toLowerCase()}&appid=${API_KEY}&units=${metric ? 'imperial ' : 'metric'}`;
 
   useEffect(() => {
