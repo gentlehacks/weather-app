@@ -35,32 +35,6 @@ interface WeatherData {
 const WeatherCards = ({weatherData}: {weatherData: WeatherData | null}) => {
   const {appTheme} = appState()
 
-// function isRainy(weatherData: WeatherData): boolean {
-//   if (weatherData.rain || weatherData.snow) {
-//     return true;
-//   }
-//   if (weatherData.weather && weatherData.weather.some(item => item.main.toLowerCase().includes('rain') || 
-//   item.main.toLowerCase().includes('drizzle') || 
-//   item.main.toLowerCase().includes('thunderstorm'))) {
-//     return true;
-//   }
-//   return false;
-// }
-
-// function isSunny(weatherData: WeatherData): boolean {
-//   if (weatherData.weather && weatherData.weather.some(item => item.main.toLowerCase() === 'clear')) {
-//     return true;
-//   }
-//   // You might also consider partly cloudy as somewhat sunny
-//   if (weatherData.clouds && weatherData.clouds.all <= 30) { // Example: Less than 30% cloud cover
-//     return true;
-//   }
-//   return false;
-// }
-
-//   const isCurrentlyRainy = isRainy(weatherData);
-//   const isCurrentlySunny = isSunny(weatherData);
-
 
   return (
     <div className="w-full mt-[3rem] flex items-center justify-center space-x-[1rem] sm:space-x-[3rem]">
@@ -128,7 +102,7 @@ const WeatherCards = ({weatherData}: {weatherData: WeatherData | null}) => {
           {weatherData?.wind.speed} 
           <span className="ml-1">km/h</span> 
         </p>
-        <p className="text-md mt-2 font-semibold">
+        <p className="w-full text-center justify-center text-md mt-2 font-semibold">
           Wind Speed
         </p>
       </div>
