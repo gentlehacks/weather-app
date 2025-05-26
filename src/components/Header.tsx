@@ -8,9 +8,7 @@ interface HeaderProps {
   setOpenSidebar: (openSidebar: boolean) => void;
   cityName: string;
   setCityName: (cityName: string) => void;
-  errorInput: string;
   setErrorInput: (errorInput: string) => void;
-  searchCity: string;
   setSearchCity: (searchCity: string) => void;
 }
 
@@ -19,9 +17,7 @@ const Header = ({
   setOpenSidebar,
   cityName,
   setCityName,
-  errorInput,
   setErrorInput,
-  searchCity,
   setSearchCity,
 
 }: HeaderProps) => {

@@ -20,6 +20,7 @@ interface WeatherData {
   weather: {
     description: string;
     icon: string;
+    main: string;
   }[];
   wind: {
     speed: number;
@@ -37,12 +38,17 @@ const WeatherApp = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [errorInput, setErrorInput] = useState<string>("");
   const [inputErrorModal, setInputErrorModal] = useState<boolean>(false);
-  const [weatherData, setWeatherData] = useState<WeatherData[] | null>(null);
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
   const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName.toLowerCase()}&appid=${API_KEY}&units=${metric ? 'imperial ' : 'metric'}`;
 
   useEffect(() => {
+    if (!searchCity) {
+      setErrorInput("Search field can't be blank.")
+      setInputErrorModal(true)
+    }
+
     const fetchData = async () => {
       setErrorInput("");
       setWeatherData(null);
@@ -80,7 +86,9 @@ const WeatherApp = () => {
 
         
       } catch (error) {
+        setInputErrorModal(true);
         setErrorInput("Error fetching weather!")
+        console.log(error)
       }
     }
 
@@ -103,9 +111,7 @@ const WeatherApp = () => {
         setOpenSidebar={setOpenSidebar}
         cityName={cityName}
         setCityName={setCityName}
-        errorInput={errorInput}
         setErrorInput={setErrorInput}
-        searchCity={searchCity}
         setSearchCity={setSearchCity}
       />
       

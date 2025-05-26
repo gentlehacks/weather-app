@@ -5,13 +5,31 @@ import { FaMoon, FaSun } from "react-icons/fa"
 import { FaLocationDot, FaXmark } from "react-icons/fa6";
 import { FaThermometerEmpty } from "react-icons/fa";
 
+interface WeatherData {
+  name: string;
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  sys: {
+    country: string;
+  };
+  weather: {
+    description: string;
+    icon: string;
+  }[];
+  wind: {
+    speed: number;
+  };
+}
+
 interface SidebarProps {
   openSidebar: boolean;
   setOpenSidebar: (openSidebar: boolean) => void;
   metric: boolean;
   setMetric: (metric: boolean) => void;
   setIsModalOpen: (isModalOpen: boolean) => void;
-  weatherData: any;
+  weatherData: WeatherData | null;
 }
 
 const Sidebar = ({

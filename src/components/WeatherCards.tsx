@@ -4,7 +4,6 @@ import { WiHumidity } from "react-icons/wi";
 import { IoCloudy } from "react-icons/io5";
 import { TiWeatherWindy } from "react-icons/ti";
 import {
-  Cloud,
   CloudRain,
   Wind,
   Bolt,      // Thunderstorm
@@ -14,8 +13,26 @@ import {
 import { PiWindBold } from "react-icons/pi";
 import { MdFoggy } from "react-icons/md";
 
+interface WeatherData {
+  name: string;
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  sys: {
+    country: string;
+  };
+  weather: {
+    description: string;
+    icon: string;
+    main: string;
+  }[];
+  wind: {
+    speed: number;
+  };
+}
 
-const WeatherCards = ({weatherData}: {weatherData: any}) => {
+const WeatherCards = ({weatherData}: {weatherData: WeatherData | null}) => {
   const {appTheme} = appState()
 
 // function isRainy(weatherData: WeatherData): boolean {
@@ -55,7 +72,7 @@ const WeatherCards = ({weatherData}: {weatherData: any}) => {
           <IoCloudy className="mt-1 text-3xl" />
         ) : weatherData?.weather[0].main === "Snow" ? (
           <Snowflake className="mt-1 text-3xl" />
-        ) : weatherData?.weather.main === "Mist" || "Fog" ? (
+        ) : weatherData?.weather[0].main === "Mist" || "Fog" ? (
           <MdFoggy className="mt-1 text-3xl"  />
         ) : weatherData?.weather[0].main === "Clear" ? (
           <Sun className="mt-1 text-3xl" />
@@ -74,7 +91,7 @@ const WeatherCards = ({weatherData}: {weatherData: any}) => {
           "Cloudy"
         ) : weatherData?.weather[0].main === "Snow" ? (
           "Snow"
-        ) : weatherData?.weather.main === "Mist" || "Fog" ? (
+        ) : weatherData?.weather[0].main === "Mist" || "Fog" ? (
           "Fog"
         ) : weatherData?.weather[0].main === "Clear" ? (
           "Clear"

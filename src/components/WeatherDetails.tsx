@@ -1,11 +1,31 @@
 "use client";
-import {appState} from "@/store";
 import {motion} from "framer-motion"
 import { FaCloud, FaLocationDot } from "react-icons/fa6";
 
+interface WeatherData {
+  name: string;
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  sys: {
+    country: string;
+  };
+  weather: {
+    description: string;
+    icon: string;
+  }[];
+  wind: {
+    speed: number;
+  };
+}
 
-const WeatherDetails = ({weatherData, metric}: {weatherData : any; metric: boolean}) => {
-  const {appTheme} = appState()
+interface WeatherDetailsProps {
+  metric: boolean;
+  weatherData: WeatherData | null;
+}
+
+const WeatherDetails = ({weatherData, metric}: WeatherDetailsProps) => {
 
   return (
     <div className="w-full pt-[6rem]  transition-bg duration-200">
