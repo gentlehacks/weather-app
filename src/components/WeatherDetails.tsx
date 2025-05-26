@@ -78,7 +78,7 @@ const WeatherDetails = ({weatherData, metric}: WeatherDetailsProps) => {
         transition={{duration: 1}}
       >
         <h1 className="text-[4rem] font-semibold">
-          {weatherData?.main.temp.toFixed(0)}
+          {weatherData?.main?.temp.toFixed(0)}
           {!weatherData && '0'} 
           <span className="ml-[-1]">°</span> 
         </h1>

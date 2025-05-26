@@ -36,7 +36,7 @@ const ErrorInput = ({
       `}>
         <div 
           onClick={() => setInputErrorModal(false)}
-        className="absolute top-[-1rem] right-0 cursor-pointer hover:text-blue-500 duration-200">
+        className="absolute top-[-2rem] right-0 cursor-pointer hover:text-red-500 duration-200 ease-in-out">
           <FaXmark size={18} />
         </div>
         <p className="text-center">

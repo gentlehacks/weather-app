@@ -24,12 +24,8 @@ const Header = ({
   const {appTheme} = appState();
 
   const handleSearchCity = () => {
-    if (cityName.trim() === "") {
-      setErrorInput("Search field could'nt be blank!")
-    } else {
-      setErrorInput("")
-      setSearchCity(cityName)
-    }
+    setErrorInput("")
+    setSearchCity(cityName)
   }
 
   return (

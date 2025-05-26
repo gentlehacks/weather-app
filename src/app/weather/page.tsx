@@ -44,7 +44,7 @@ const WeatherApp = () => {
   const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName.toLowerCase()}&appid=${API_KEY}&units=${metric ? 'imperial ' : 'metric'}`;
 
   useEffect(() => {
-    if (!searchCity) {
+    if (cityName.length < 1) {
       setErrorInput("Search field can't be blank.")
       setInputErrorModal(true)
     }
