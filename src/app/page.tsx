@@ -15,7 +15,7 @@ const Home = () => {
       ${appTheme ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}
     `}>
       <motion.div className="w-full flex items-center justify-center mx-auto overflow-hidden"
-        initial={{x: '35%', opacity: 0}}
+        initial={{x: '36%', opacity: 0}}
         animate={{x: 0, opacity: 1}}
         transition={{duration: 1}}
       >
