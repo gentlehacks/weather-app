@@ -1,31 +1,15 @@
 "use client";
+import { WeatherData } from "@/types";
 import {motion} from "framer-motion"
 import { FaCloud, FaLocationDot } from "react-icons/fa6";
-
-interface WeatherData {
-  name: string;
-  main: {
-    temp: number;
-    humidity: number;
-  };
-  sys: {
-    country: string;
-  };
-  weather: {
-    description: string;
-    icon: string;
-  }[];
-  wind: {
-    speed: number;
-  };
-}
 
 interface WeatherDetailsProps {
   metric: boolean;
   weatherData: WeatherData | null;
+  loading: boolean;
 }
 
-const WeatherDetails = ({weatherData, metric}: WeatherDetailsProps) => {
+const WeatherDetails = ({weatherData, metric, loading}: WeatherDetailsProps) => {
 
   return (
     <div className="w-full pt-[6rem]  transition-bg duration-200">
@@ -37,10 +21,11 @@ const WeatherDetails = ({weatherData, metric}: WeatherDetailsProps) => {
         <FaLocationDot className="text-3xl text-blue-500" />
         <h1 className="text-3xl font-semibold ml-2">
           {weatherData?.name}
-          {!weatherData && "No City"}
+            {!weatherData ? "No city found." 
+             : loading && 'loading...'
+            }
           <span className="ml-2">
-            {weatherData?.sys.country}
-            {!weatherData && "😒"}
+            {weatherData ? weatherData?.sys?.country : "😒"}
           </span>
         </h1>
       </motion.div>
@@ -48,17 +33,15 @@ const WeatherDetails = ({weatherData, metric}: WeatherDetailsProps) => {
       {/* Weather Icon */}
       <motion.div className="w-full flex items-center justify-center mt-[4rem]"
       >
-        {!weatherData && (
+        {!weatherData ? (
           <FaCloud className="text-[7rem]" />
-        )}
-        {weatherData && (
+        ) : weatherData && (
           <img
             alt="Weather Icon"
-            src={`http://openweathermap.org/img/wn/${weatherData?.weather[0]?.icon}@4x.png`}
+            src={`http://openweathermap.org/img/wn/${weatherData?.weather?.[0]?.icon}@4x.png`}
             className="w-[7rem] h-[7rem]"
           />
         )}
-          
         
       </motion.div>
 
@@ -68,7 +51,7 @@ const WeatherDetails = ({weatherData, metric}: WeatherDetailsProps) => {
         transition={{duration: 1}}
       >
         
-        {weatherData?.weather[0]?.description}
+        {weatherData ? weatherData?.weather?.[0]?.description : loading && 'loading...'}
         {!weatherData && 'No weather found!'}
       </motion.p>
 
@@ -78,11 +61,11 @@ const WeatherDetails = ({weatherData, metric}: WeatherDetailsProps) => {
         transition={{duration: 1}}
       >
         <h1 className="text-[4rem] font-semibold">
+          {!weatherData && '0'}
           {weatherData?.main?.temp.toFixed(0)}
-          {!weatherData && '0'} 
           <span className="ml-[-1]">°</span> 
         </h1>
-        <h1 className="ml-2 text-[3.5rem] font-semibold">
+        <h1 className="ml-1 text-[3.5rem] font-semibold">
           {metric ? "F" : "C"}
         </h1>
       </motion.div>

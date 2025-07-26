@@ -5,100 +5,41 @@ import Header from "@/components/Header"
 import WeatherCards from "@/components/WeatherCards"
 import WeatherDetails from "@/components/WeatherDetails"
 import Sidebar from "@/components/Sidebar"
-import WeatherAlertModal from "@/components/WeatherAlertModal"
-import ErrorInput from "@/components/ErrorInput"
-
-interface WeatherData {
-  name: string;
-  main: {
-    temp: number;
-    humidity: number;
-  };
-  sys: {
-    country: string;
-  };
-  weather: {
-    description: string;
-    icon: string;
-    main: string;
-  }[];
-  wind: {
-    speed: number;
-  };
-}
+import { WeatherData } from "@/types"
 
 const WeatherApp = () => {
-  const {appTheme} = appState()
+  const {appTheme} = appState();
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [cityName, setCityName] = useState<string>("");
   const [metric, setMetric] = useState<boolean>(false);
   const [searchCity, setSearchCity] = useState<string>("");
-  const [modalMessage, setModalMessage] = useState<string>("");
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [errorInput, setErrorInput] = useState<string>("");
-  const [inputErrorModal, setInputErrorModal] = useState<boolean>(false);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [loading, setLoading] = useState<boolean>(false)
 
   const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
   const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName.toLowerCase()}&appid=${API_KEY}&units=${metric ? 'imperial ' : 'metric'}`;
 
   useEffect(() => {
-    if (cityName.length < 1) {
-      setErrorInput("Search field can't be blank.")
-      setInputErrorModal(true)
-    }
-
-    const fetchData = async () => {
-      setErrorInput("");
-      setWeatherData(null);
-      setIsModalOpen(false);
-
+    const fetchWeather = async () => {
+      setLoading(true);
       try {
         const response = await fetch(API_URL);
-
-        if (!response.ok) {
-          const errorInput = await response.json();
-          errorInput('Failed to fetch weather data.');
-        }
-
-        const data = await response.json()
-        setWeatherData(data)
-
-        // Check temperature and trigger modal
-        const temperature = data?.main?.temp;
-        const isMetric = metric
-
-        let temperatureCelsius = temperature;
-        if (isMetric && temperature !== undefined) {
-          temperatureCelsius = (temperature - 32) * (5 / 9);
-        }
-
-        if (temperatureCelsius !== undefined) {
-          if (temperatureCelsius > 35) {
-            setModalMessage(`Temperature in ${data?.name} is likely high! (${temperature}°F / ${temperatureCelsius.toFixed(1)}°C)`);
-            setIsModalOpen(true);
-          } else if (temperatureCelsius < 15) {
-            setModalMessage(`Temperature in ${data?.name} is likely low! (${temperature}°F / ${temperatureCelsius.toFixed(1)}°C)`);
-            setIsModalOpen(true);
-          }
-        }
-
-        
+        const data = await response.json();
+        setWeatherData(data);
+        console.log(`Weather of ${cityName} Fetched.`);
+        setLoading(false);
       } catch (error) {
-        setInputErrorModal(true);
-        setErrorInput("Error fetching weather!")
-        console.log(error)
+        console.log('Error Fetching ', error);
+        setLoading(false);
+        setWeatherData(null);
       }
-    }
+    };
 
-    fetchData()
+    fetchWeather()
 
-  }, [searchCity, metric]);
+  }, [searchCity, metric, API_URL, cityName])
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <div className={`relative w-full h-screen relative transition-bg duration-200
@@ -111,8 +52,8 @@ const WeatherApp = () => {
         setOpenSidebar={setOpenSidebar}
         cityName={cityName}
         setCityName={setCityName}
-        setErrorInput={setErrorInput}
         setSearchCity={setSearchCity}
+        loading={loading}
       />
       
 
@@ -121,6 +62,7 @@ const WeatherApp = () => {
       <WeatherDetails 
         weatherData={weatherData} 
         metric={metric}
+        loading={loading}
       />
 
 
@@ -138,22 +80,6 @@ const WeatherApp = () => {
           setOpenSidebar={setOpenSidebar}
           metric={metric}
           setMetric={setMetric}
-          setIsModalOpen={setIsModalOpen}
-        />
-      )}
-
-      {isModalOpen && (
-        <WeatherAlertModal 
-          message={modalMessage}
-          onClose={handleCloseModal}
-        />
-      )}
-
-      {errorInput.length > 1 && inputErrorModal && (        
-        <ErrorInput 
-          errorInput={errorInput}
-          inputErrorModal={inputErrorModal}
-          setInputErrorModal={setInputErrorModal}
         />
       )}
       

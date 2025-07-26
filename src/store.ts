@@ -5,9 +5,10 @@ interface AppState {
   setAppTheme: () => void;
 }
 
+
 export const appState = create<AppState>((set) => ({
   appTheme: true,
   setAppTheme: () => set((state) => ({
     appTheme: !state.appTheme
   }))
-}))
+}));

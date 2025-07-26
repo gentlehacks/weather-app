@@ -28,7 +28,6 @@ interface SidebarProps {
   setOpenSidebar: (openSidebar: boolean) => void;
   metric: boolean;
   setMetric: (metric: boolean) => void;
-  setIsModalOpen: (isModalOpen: boolean) => void;
   weatherData: WeatherData | null;
 }
 
@@ -38,12 +37,10 @@ const Sidebar = ({
   setOpenSidebar,
   metric,
   setMetric,
-  setIsModalOpen,
 }: SidebarProps) => {
   const {appTheme, setAppTheme} = appState()
 
   const handleMetricChange = () => {
-    setIsModalOpen(false)
     setMetric(!metric)
   }
 
