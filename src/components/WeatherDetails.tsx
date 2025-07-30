@@ -38,7 +38,7 @@ const WeatherDetails = ({weatherData, metric, loading}: WeatherDetailsProps) => 
         ) : weatherData && (
           <img
             alt="Weather Icon"
-            src={`http://openweathermap.org/img/wn/${weatherData?.weather?.[0]?.icon}@4x.png`}
+            src={`http://openweathermap.org/img/wn/${weatherData?.weather?.[0]?.icon}@4x.png`} 
             className="w-[7rem] h-[7rem]"
           />
         )}

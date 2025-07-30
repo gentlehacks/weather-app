@@ -15,12 +15,11 @@ const WeatherCards = ({weatherData}: {weatherData: WeatherData | null}) => {
       <div className={`w-[7rem] sm:w-[7rem] md:w-[7rem] lg:w-[8rem] h-[9rem] lg:h-[10rem] flex flex-col items-center justify-center p-3 rounded-lg transition-bg duration-200
         ${appTheme ? 'bg-gray-800' : 'bg-gray-200'}
       `}>
-        Sunny
+        Condition
         <p className="mt-5 mb-2 text-lg items-center">
           <TiWeatherWindy />
         </p>
         <p className="text-md mt-2 font-semibold">
-          Sunny
           {weatherData?.weather?.[0]?.main === "Clouds" ? (
           "Cloudy"
         ) : weatherData?.weather?.[0]?.main === "Snow" ? (
