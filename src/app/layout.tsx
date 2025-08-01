@@ -1,7 +1,6 @@
 "use client"
 import { motion, AnimatePresence } from 'framer-motion';
 import { ReactNode } from 'react';
-import PlausibleProvider from "next-plausible";
 import "./globals.css";
 import { usePathname } from 'next/navigation';                                  
 
@@ -15,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script defer data-domain="getpexelxus.com" src="https://plausible.io/js/scrip.js" />
+        <script defer data-domain="weather-app-ibbu.vercel.app" src="https://plausible.io/js/scrip.js" />
       </head>
       <body
         className={`antialiased`}
