@@ -1,5 +1,6 @@
 "use client"
 import { motion, AnimatePresence } from 'framer-motion';
+import PlausibleProvider from "next-plausible";
 import { ReactNode } from 'react';
 import "./globals.css";
 import { usePathname } from 'next/navigation';                                  
@@ -19,17 +20,19 @@ export default function RootLayout({
       <body
         className={`antialiased`}
       >
-        <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={pathname}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.4 }}
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+        <PlausibleProvider domain="weather-app-ibbu.vercel.app">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={pathname}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
+        </PlausibleProvider>
       </body>
     </html>
   );

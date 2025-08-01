@@ -7,7 +7,7 @@ interface AppState {
 
 
 export const appState = create<AppState>((set) => ({
-  appTheme: false,
+  appTheme: true,
   setAppTheme: () => set((state) => ({
     appTheme: !state.appTheme
   }))
